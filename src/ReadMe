@@ -1,0 +1,67 @@
+ATM APP:
+
+ATM-ul va avea urmatoarele proprietati: Banca de care apartine ATM-ul, comisionul de retragere, suma de bani disponibila, si card-ul curent introdus de o persoana.
+(Un atm trebuie neaparat sa apartina de o banca, sa aiba un comision de retragere, o suma de bani disponibila inainte de a fi functional)
+
+ATM-ul va primi si elibera doar RON.
+
+Pe un card, o persona poate avea un cont asociat. Contul va avea ca informatii: moneda in care este contul(Ron) si suma curenta de bani.
+Card-ul are ca informatii: numarul de card, CVV-ul, banca emitenta a cardului, pin-ul(4-6 cifre), contul asociat acestuia.
+
+Persoana va introduce cardul in ATM, iar acesta ii va cere pin-ul.
+Dupa introducerea cardului in bancomat si verificarea datelor cardului ATM-ul ii va afisa urmatorul meniu:
+
+1.Schimbare pin.(Al cardului, indiferent de contul ales) -> Se va cere pin-ul vechi, pinul nou si confirmare a pinului nou. (Pinul trebuie sa fie de minim 4 cifre si de maxim 6 iar pin nou si confirmare pin nou trebuie sa coincida)
+2.Retragere numerar. -> Se va afisa un meniu de sume prestabilite ->
+                                     1. 10Ron
+								     2. 50Ron
+							         3. 100Ron
+								     4. 200Ron
+								     5. 500Ron
+								     6. Alta suma -> Se va ruga utilizatorul sa introduce suma dorita( Minum 10Ron si multiplu de 10).
+
+
+		     -> Se va aplica comisionul aferent ATM-ului daca cardul folosit nu este emis de aceeasi banca cu banca ce detine ATM-ul.
+		     -> Daca contul este in alta moneda decat cea a bancomatului se va face conversia din moneda in care este contul in RON la un curs stabilit de catre bancomat.
+3.Alimentare cont. -> Se va afisa un meniu de sume prestabilite ->
+                                    | -> Se va ruga utilizatorul sa introduce suma dorita( Minum 10Ron si multiplu de 10).
+4.Interogare sold. -> Se va afisa suma de bani din contul ales anterior pentru cardul introdus in bancomat.
+5.Plata factura. (Se va cere numarul de cont trecut pe factura, numele persoanei catre care se face transferul si suma trimisa).
+		 -> Daca utiliztorul a efectuat transferul cu succes (are suma de bani disponibila in contul din care a ales sa faca plata facturii) statusul facturii se va schimba in Achitat.
+6.Exit.
+
+Dupa fiecare optiune se va intreba utilizatorul daca doreste sa efectueze o alta operatie.
+ -> Daca da, se va afisa din nou meniul si se reia procesul.
+ -> Daca nu, se va resitui card-ul si se va parasi aplicatia.
+
+ATM -> String banca;
+       double comisionRetragere;
+       long sumaDisponibilaAtm;
+       Card cardCurent;
+
+ ->Constructor parametrizat -> banca, comisionRetragere, sumaDisponibilaAtm, dolarRon, euroRon
+
+afisateMeniu();
+
+long conversieBanMoneda(long suma); -> suma 2520 bani -> 25,20 RON
+
+long conversieMonedaBan(long suma); -> suma 25,20 RON -> 2520 bani.
+
+long conversieEuroRon(long sumaEuroCenti); -> apelam conversieBanMoneda inainte sa aplicam conversia din euro in ron
+
+long conversieDolarRon(long sumaCenti); -> apelam conversieBanMoneda inainte sa aplicam conversia din dolar in ron
+
+
+-> Constructor parametrizat -> numarCard, bancaEmitenta, cvv, numePersoanaDetinatoareCard
+
+Cont -> String monedaCont;
+	long sumaDeBaniCurenta;
+
+
+-> Constructor parametrizat -> monedaCont, sumaDeBaniCurenta
+
+Factura -> String numarContBeneficiar;
+	   String numeBeneficiar;
+	   long sumaDePlata; (Asta va fi in ron) -> Va trebuie sa convertim din ron in ban ca sa stim cat vom scadea din contul persoanei care a facut plata.
+
+-> Constructor parametrizat cu toate fildurile.
